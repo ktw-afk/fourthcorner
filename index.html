@@ -2,57 +2,188 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>No Full Fares</title>
-<meta name="description" content="A private membership. Business-class seats and five-star hotels at verified prices well below public.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fourth Corner</title>
+<meta name="description" content="Fourth Corner is an invitation-only travel agency.">
+<meta name="theme-color" content="#17332c">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='6' fill='%2317332c'/%3E%3Cg fill='none' stroke='%23c6a866' stroke-linecap='square'%3E%3Cpath stroke-width='2' d='M9 16V9h7M24 9h7v7M9 24v7h7'/%3E%3Cpath stroke-width='4.5' d='M31 25v6h-6'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #fbfaf7; --ink: #1c1b18; --muted: #6b675f; --line: #e4e0d8; --accent: #1f3a5f;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root { --bg: #15140f; --ink: #f1ede4; --muted: #a39d92; --line: #2c2a24; --accent: #9fbbe0; }
+    --cover: #17332c;        /* passport-cover green */
+    --cover-deep: #10261f;
+    --foil: #c6a866;         /* foil-stamp gold */
+    --foil-soft: #9fb1a6;    /* muted text on the cover */
+    --paper: #f1f3ee;        /* the page */
+    --ink: #1b2a26;
+    --ink-soft: #55635e;
+    --field-line: #c3cbc3;
+    --wordmark: "Marcellus", "Trajan Pro", Georgia, serif;
+    --text: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    color-scheme: light;
   }
   * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--ink);
-    font: 17px/1.55 Georgia, "Times New Roman", serif; }
-  main { max-width: 640px; margin: 0 auto; padding: 72px 20px 56px; }
-  h1 { font-size: 40px; line-height: 1.1; margin: 0 0 8px; letter-spacing: -0.01em; }
-  .sub { color: var(--muted); font-size: 19px; margin: 0 0 40px; }
-  h2 { font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
-    margin: 40px 0 12px; font-family: system-ui, sans-serif; font-weight: 600; }
-  p { margin: 0 0 16px; }
-  ul { padding-left: 20px; margin: 0 0 16px; }
-  li { margin-bottom: 8px; }
-  a { color: var(--accent); }
-  .cta { display: inline-block; margin-top: 8px; padding: 12px 18px; border: 1px solid var(--ink);
-    color: var(--ink); text-decoration: none; font-family: system-ui, sans-serif; font-size: 16px; }
-  footer { margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--line);
-    color: var(--muted); font-size: 14px; font-family: system-ui, sans-serif; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: radial-gradient(120% 90% at 50% 0%, var(--cover) 0%, var(--cover-deep) 100%) fixed, var(--cover-deep);
+    color: var(--paper);
+    font: 16px/1.5 var(--text);
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    min-height: 100%;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: 28px;
+    padding: max(40px, env(safe-area-inset-top)) 16px max(32px, env(safe-area-inset-bottom));
+  }
+
+  /* the cover: foil-stamped mark and name */
+  .brand { text-align: center; color: var(--foil); }
+  .mark { display: block; width: 44px; height: 44px; margin: 0 auto 18px; }
+  .name {
+    margin: 0;
+    font: 400 clamp(30px, 7vw, 40px)/1.1 var(--wordmark);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding-left: 0.2em; /* balances the tracking after the last letter */
+  }
+  .what { margin: 10px 0 0; color: var(--foil-soft); font-size: 15px; letter-spacing: 0.01em; }
+
+  /* the page: sign-in form on paper, with a faint security pattern in its fourth corner */
+  .sheet {
+    position: relative;
+    overflow: hidden;
+    width: min(400px, 100%);
+    padding: 34px 32px 28px;
+    background: var(--paper);
+    color: var(--ink);
+    border-radius: 4px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 30px 60px -30px rgba(3, 12, 9, 0.85), 0 2px 6px rgba(3, 12, 9, 0.35);
+  }
+  .rosette {
+    position: absolute;
+    width: 560px; height: 560px;
+    right: -280px; bottom: -280px;
+    fill: none;
+    stroke: var(--cover);
+    stroke-opacity: 0.11;
+    stroke-width: 0.7;
+    pointer-events: none;
+  }
+  .sheet > *:not(.rosette) { position: relative; }
+  h1 { margin: 0 0 22px; font: 400 26px/1.2 var(--wordmark); letter-spacing: 0.01em; }
+  form { display: grid; gap: 16px; }
+  .field { display: grid; gap: 6px; }
+  label { font-size: 14px; font-weight: 500; color: var(--ink-soft); }
+  input {
+    width: 100%;
+    padding: 12px 13px;
+    font: 16px/1.25 var(--text);
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid var(--field-line);
+    border-radius: 3px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  input:focus { outline: none; border-color: var(--cover); box-shadow: 0 0 0 3px rgba(198, 168, 102, 0.55); }
+  button {
+    margin-top: 6px;
+    padding: 13px 16px;
+    font: 600 16px/1.2 var(--text);
+    color: var(--paper);
+    background: var(--cover);
+    border: 0;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  button:hover { background: #1e4038; }
+  button:focus-visible { outline: 3px solid var(--foil); outline-offset: 2px; }
+  .notice { min-height: 0; margin: 0; font-size: 14px; color: var(--ink); }
+  .notice:not(:empty) { padding: 11px 13px; background: #e4e9e1; border-left: 3px solid var(--foil); border-radius: 2px; }
+  .invite { margin: 22px 0 0; padding-top: 18px; border-top: 1px solid #dde2da; font-size: 14px; color: var(--ink-soft); }
+  .sheet a { color: var(--cover); font-weight: 600; text-underline-offset: 3px; }
+  .sheet a:focus-visible, footer a:focus-visible { outline: 3px solid var(--foil); outline-offset: 2px; border-radius: 2px; }
+
+  footer { text-align: center; font-size: 13px; color: var(--foil-soft); }
+  footer p { margin: 0; }
+  footer a { color: var(--foil-soft); text-underline-offset: 3px; }
+
+  @media (max-width: 380px) {
+    .sheet { padding: 28px 22px 24px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    input { transition: none; }
+  }
 </style>
 </head>
 <body>
-<main>
-  <h1>No Full Fares</h1>
-  <p class="sub">A private membership. Business-class seats and five-star hotels at verified prices well below public.</p>
+<div class="page">
+  <header class="brand">
+    <svg class="mark" viewBox="0 0 44 44" aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="square">
+      <path stroke-width="1.6" d="M5 17V5h12M27 5h12v12M5 27v12h12"/>
+      <path stroke-width="4.5" d="M39 28v11H28"/>
+    </svg>
+    <p class="name">Fourth Corner</p>
+    <p class="what">Invitation-only travel agency</p>
+  </header>
 
-  <p>Every seat has a full fare and a second, lower one. Every room has a second rate. We find the second price on luxury travel and give members the exact way to get it.</p>
+  <main class="sheet">
+    <svg class="rosette" viewBox="0 0 560 560" aria-hidden="true" id="rosette"></svg>
+    <h1>Sign in</h1>
+    <form id="signin" novalidate>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="username" inputmode="email" required>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+      </div>
+      <button type="submit">Sign in</button>
+      <p class="notice" id="notice" role="status" aria-live="polite"></p>
+    </form>
+    <p class="invite">New to Fourth Corner? Membership is by invitation. <a href="mailto:keenanworthington@gmail.com?subject=Fourth%20Corner%20invitation">Request an invitation</a></p>
+  </main>
 
-  <h2>What members get</h2>
-  <ul>
-    <li>Fares and hotel rates that don't appear on public booking sites, booked for you.</li>
-    <li>Points plays priced in plain dollars, with every step written out.</li>
-    <li>Every number checked against the public price before it's posted. If it can't be verified, it isn't posted.</li>
-  </ul>
+  <footer>
+    <p>&copy; 2026 Fourth Corner LLC, California. <a href="mailto:keenanworthington@gmail.com">Contact us</a></p>
+  </footer>
+</div>
+<script>
+  // Nothing typed here is sent anywhere: accounts are opened by invitation.
+  document.getElementById("signin").addEventListener("submit", function (e) {
+    e.preventDefault();
+    this.password.value = "";
+    document.getElementById("notice").textContent =
+      "Accounts are opened by invitation. Use the sign-in link in your invitation email.";
+  });
 
-  <h2>Membership</h2>
-  <p>Seats and rooms are finite, so membership is kept small on purpose and enrollment opens in windows. One tier, everything included, monthly or yearly.</p>
-  <a class="cta" href="mailto:keenanworthington@gmail.com?subject=No%20Full%20Fares%20invite">Request an invite</a>
-  <a class="cta" href="login.html" style="margin-left:10px">Member login</a>
-
-  <h2>Contact</h2>
-  <p><a href="mailto:keenanworthington@gmail.com">keenanworthington@gmail.com</a></p>
-
-  <footer>No Full Fares is operated by Fourth Corner LLC, California. Flights and hotels are fulfilled through accredited travel partners; members pay the supplier directly.</footer>
-</main>
+  // A faint guilloche rosette, like the security pattern on a passport page.
+  (function () {
+    var svg = document.getElementById("rosette"), NS = "http://www.w3.org/2000/svg";
+    var rings = [
+      { r: 120, a: 12, n: 16, k: 10 },
+      { r: 178, a: 10, n: 22, k: 9 },
+      { r: 232, a: 8, n: 28, k: 8 }
+    ];
+    rings.forEach(function (g) {
+      for (var j = 0; j < g.k; j++) {
+        var ph = (j * 2 * Math.PI) / (g.n * g.k), d = "";
+        for (var i = 0; i <= 480; i++) {
+          var t = (i / 480) * 2 * Math.PI, r = g.r + g.a * Math.cos(g.n * (t + ph));
+          d += (i ? "L" : "M") + (280 + r * Math.cos(t)).toFixed(1) + " " + (280 + r * Math.sin(t)).toFixed(1);
+        }
+        var p = document.createElementNS(NS, "path");
+        p.setAttribute("d", d + "Z");
+        svg.appendChild(p);
+      }
+    });
+  })();
+</script>
 </body>
 </html>
